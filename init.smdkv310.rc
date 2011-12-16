@@ -1,0 +1,23 @@
+on early-init
+    export EXTERNAL_STORAGE /mnt/sdcard
+    mkdir /mnt/sdcard 0000 system system
+    # for backwards compatibility
+    symlink /mnt/sdcard /sdcard
+
+on boot
+    mount debugfs /sys/kernel/debug /sys/kernel/debug
+
+    setprop ro.build.product smdkc210
+    setprop ro.product.device smdkc210
+    setprop ro.radio.noril yes
+
+# fake some battery state
+    setprop status.battery.state Slow
+    setprop status.battery.level 5
+    setprop status.battery.level_raw  50
+    setprop status.battery.level_scale 9
+
+service tscald /system/bin/tscald /data/data/com.samsung.app.sec_tscal/cal.conf /sys/devices/platform/s3c64xx-ts/set_tscal
+    user root
+    group root
+    oneshot
