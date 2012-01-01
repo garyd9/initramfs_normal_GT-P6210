@@ -620,7 +620,7 @@ service playsound /system/bin/playsound
     disabled
     oneshot
 
-service samsungani /system/bin/samsungani
+service samsungani /vendor/scripts/bootanimation.sh
     class main
     user graphics
     group graphics
